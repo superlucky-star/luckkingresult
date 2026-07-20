@@ -119,3 +119,9 @@ color:#fff;
 text-align:center;
 padding:15px;
   }
+
+td:first-child{
+color:#d50000;
+font-weight:bold;
+font-size:16px;
+}
