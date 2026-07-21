@@ -12,6 +12,9 @@
 
 <h2>⚙️ Luck King Admin Panel</h2>
 
+<label>Date</label>
+<input type="number" id="date" min="1" max="31" placeholder="Enter Date">
+
 <label>RUDRAPUR</label>
 <input type="text" id="rdpr" placeholder="Enter Result">
 
@@ -31,13 +34,13 @@
 
 <button onclick="save()">Save Result</button>
 
+<br><br>
+
+<button id="logoutBtn">Logout</button>
+
 </div>
 
-<script>
-function save(){
-alert("Abhi panel ready hai. Agle step me Firebase jodenge, tab Save karne par website par result automatically update hoga.");
-}
-</script>
+<script type="module" src="panel.js"></script>
 
 </body>
 </html>
