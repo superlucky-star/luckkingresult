@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luck King Result Chart</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>📊 Luck King Result Chart</h2>
+
+<select id="monthSelect" onchange="changeMonth()">
+  <option value="july">July 2026</option>
+  <option value="june">June 2026</option>
+  <option value="may">May 2026</option>
+  <option value="april">April 2026</option>
+  <option value="march">March 2026</option>
+</select>
+
+<div id="chartArea">
+
+<h3>July 2026</h3>
+
+<table border="1">
+<tr>
+<th>Date</th>
+<th>RDPR</th>
+<th>BLPR</th>
+<th>GDPR</th>
+<th>DNPR</th>
+</tr>
+
+<tbody id="chartBody">
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<script type="module" src="chart.js"></script>
+
+</body>
+</html>
