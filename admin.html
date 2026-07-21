@@ -3,40 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Login</title>
-<link rel="stylesheet" href="style.css">
-</head>
+<title>Luck King Admin Login</title>
 
+<link rel="stylesheet" href="style.css">
+
+</head>
 <body>
 
 <div class="login-box">
 
-<h2>🔐 Admin Login</h2>
+<h2>🔐 Luck King Admin</h2>
 
-<input type="text" id="user" placeholder="Username">
+<input
+type="email"
+id="email"
+placeholder="Enter Email">
 
-<input type="password" id="pass" placeholder="Password">
+<input
+type="password"
+id="password"
+placeholder="Enter Password">
 
-<button onclick="login()">Login</button>
+<button id="loginBtn">
+Login
+</button>
 
 <p id="msg"></p>
 
 </div>
 
-<script>
-function login(){
-
-var u=document.getElementById("user").value;
-var p=document.getElementById("pass").value;
-
-if(u=="admin" && p=="12345"){
-window.location="panel.html";
-}else{
-document.getElementById("msg").innerHTML="Wrong Username or Password";
-}
-
-}
-</script>
+<script type="module" src="admin.js"></script>
 
 </body>
 </html>
