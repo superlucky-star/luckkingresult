@@ -10,41 +10,61 @@ import {
   signOut
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 
-// Login check
+// Login Check
 onAuthStateChanged(auth, (user) => {
   if (!user) {
     window.location.href = "admin.html";
   }
 });
 
+// Save Result
 window.save = async function () {
+
+  const year = document.getElementById("year").value;
+  const month = document.getElementById("month").value;
+
+  const date = document.getElementById("date").value;
 
   const rdpr = document.getElementById("rdpr").value;
   const blpr = document.getElementById("blpr").value;
   const gdpr = document.getElementById("gdpr").value;
   const dnpr = document.getElementById("dnpr").value;
-  const date = document.getElementById("date").value;
+
   const notice = document.getElementById("notice").value;
 
   try {
 
+    // Today's Result
     await setDoc(doc(db, "today", "result"), {
+
+      year,
+      month,
       date,
+
       rdpr,
       blpr,
       gdpr,
       dnpr,
+
       notice,
+
       updated: new Date().toISOString()
+
     });
 
+    // Monthly Chart
     await setDoc(doc(db, "chart", date), {
-      date,
-      rdpr,
-      blpr,
-      gdpr,
-      dnpr
-    });
+
+  year,
+  month,
+  date,
+
+  rdpr,
+  blpr,
+  gdpr,
+  dnpr
+
+}, { merge: true });
 
     alert("✅ Result Saved Successfully");
 
@@ -54,7 +74,7 @@ window.save = async function () {
 
   }
 
-}
+};
 
 // Logout
 document.getElementById("logoutBtn").addEventListener("click", async () => {
