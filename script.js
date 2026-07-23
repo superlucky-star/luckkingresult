@@ -4,7 +4,9 @@ import {
   getDoc,
   onSnapshot,
   collection,
-  getDocs
+  getDocs,
+  query,
+  where
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
 // Today's Result
@@ -26,67 +28,46 @@ onSnapshot(resultRef, (docSnap) => {
   }
 });
 
-// Chart Update
-const chartBody = document.getElementById("chartBody");
+window.loadHomeChart = async function () {
 
-if (chartBody) {
+  const month = document.getElementById("monthSelect").value;
+  const chartBody = document.getElementById("chartBody");
+  const title = document.getElementById("chartTitle");
 
-  getDocs(collection(db, "chart")).then((snapshot) => {
+  chartBody.innerHTML = "";
 
-    snapshot.forEach((doc) => {
+  title.innerHTML = "🗓️ " +
+    month.charAt(0).toUpperCase() + month.slice(1) +
+    " 2026 Result Chart";
 
-      const data = doc.data();
+  const q = query(
+    collection(db, "chart"),
+    where("month", "==", month),
+    where("year", "==", "2026")
+  );
 
-      if (Number(data.date) > 17) {
+  const snapshot = await getDocs(q);
 
-        chartBody.innerHTML += `
-<tr>
-<td>${data.date}</td>
-<td>${data.rdpr}</td>
-<td>${data.blpr}</td>
-<td>${data.gdpr}</td>
-<td>${data.dnpr}</td>
-</tr>
-`;
+  const rows = [];
 
-      }
-
-    });
-
+  snapshot.forEach((doc) => {
+    rows.push(doc.data());
   });
 
-}
+  rows.sort((a, b) => Number(a.date) - Number(b.date));
 
-window.searchResult = async function () {
-
-  const date = document.getElementById("searchDate").value;
-  const output = document.getElementById("searchOutput");
-
-  if (!date) {
-    output.innerHTML = "⚠️ Date enter karo";
-    return;
-  }
-
-  const resultRef = doc(db, "chart", date);
-  const resultSnap = await getDoc(resultRef);
-
-  if (resultSnap.exists()) {
-
-    const data = resultSnap.data();
-
-    output.innerHTML = `
-      <h3>Result Found</h3>
-      <p>📅 Date : ${data.date}</p>
-      <p>RUDRAPUR : ${data.rdpr}</p>
-      <p>BILASPUR : ${data.blpr}</p>
-      <p>GADARPUR : ${data.gdpr}</p>
-      <p>DINESHPUR : ${data.dnpr}</p>
+  rows.forEach((data) => {
+    chartBody.innerHTML += `
+      <tr>
+        <td>${data.date}</td>
+        <td>${data.rdpr || "--"}</td>
+        <td>${data.blpr || "--"}</td>
+        <td>${data.gdpr || "--"}</td>
+        <td>${data.dnpr || "--"}</td>
+      </tr>
     `;
+  });
 
-  } else {
+};
 
-    output.innerHTML = "❌ Result Not Found";
-
-  }
-
-}
+loadHomeChart();
